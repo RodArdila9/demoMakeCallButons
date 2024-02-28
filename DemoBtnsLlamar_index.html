@@ -33,7 +33,40 @@
         const platformClient = require("platformClient");
         const client = platformClient.ApiClient.instance;
         client.setEnvironment(platformClient.PureCloudRegionHosts.sa_east_1);
-  
+        
+        const clientId = "b6842dcd-c15b-4db9-a8fb-001e1057a629";
+        const redirectUri = "https://rodardila9.github.io/demoMakeCallButons/DemoBtnsLlamar_index.html";
+
+        client.loginImplicitGrant(clientId, redirectUri, { state: state })
+          .then((data) => {
+            console.log(data);
+            // Do authenticated things
+            
+            const apiInstance = new platformClient.ConversationsApi();
+            const body = {
+              "callFromQueueId": "231b12d6-d673-4158-945e-85cee0f579da", //Cola: Pruebas_Outbound 
+              "phoneNumber": "3112816084",
+              "callerId": "573009137762",
+              "callerIdName": "Genesys"
+            }; // Object | Call request
+    
+            apiInstance.postConversationsCalls(body)
+              .then((data) => {
+                console.log(`postConversationsCalls success! data: ${JSON.stringify(data, null, 2)}`);
+              })
+              .catch((err) => {
+                console.log("There was a failure calling postConversationsCalls");
+                console.error(err);
+              });
+
+          })
+          .catch((err) => {
+            // Handle failure response
+            console.log("There was a failure calling postConversationsCalls");
+            console.error(err);
+          });
+
+        /*
         client.loginImplicitGrant(
               "b6842dcd-c15b-4db9-a8fb-001e1057a629",
               "https://rodardila9.github.io/demoMakeCallButons/DemoBtnsLlamar_index.html"
@@ -57,7 +90,7 @@
                   console.error(err);
                 });
 
-            });
+            });*/
     });
   });
 
@@ -69,6 +102,39 @@
         const client = platformClient.ApiClient.instance;
         client.setEnvironment(platformClient.PureCloudRegionHosts.sa_east_1);
 
+        const clientId = "b6842dcd-c15b-4db9-a8fb-001e1057a629";
+        const redirectUri = "https://rodardila9.github.io/demoMakeCallButons/DemoBtnsLlamar_index.html";
+
+        client.loginImplicitGrant(clientId, redirectUri, { state: state })
+          .then((data) => {
+            console.log(data);
+            // Do authenticated things
+            
+            const apiInstance = new platformClient.ConversationsApi();
+            const body = {
+              "callFromQueueId": "87c4d826-ccc8-4269-a099-2f6fd606a78d", //Cola: Pruebas_Outbound-muted 
+              "phoneNumber": "3112816084",
+              "callerId": "573009137762",
+              "callerIdName": "Genesys"
+            }; // Object | Call request
+    
+            apiInstance.postConversationsCalls(body)
+              .then((data) => {
+                console.log(`postConversationsCalls success! data: ${JSON.stringify(data, null, 2)}`);
+              })
+              .catch((err) => {
+                console.log("There was a failure calling postConversationsCalls");
+                console.error(err);
+              });
+
+          })
+          .catch((err) => {
+            // Handle failure response
+            console.log("There was a failure calling postConversationsCalls");
+            console.error(err);
+          });
+
+/*
         client.loginImplicitGrant(
               "b6842dcd-c15b-4db9-a8fb-001e1057a629",
               "https://rodardila9.github.io/demoMakeCallButons/DemoBtnsLlamar_index.html"
@@ -92,7 +158,7 @@
                   console.error(err);
                 });
 
-            });
+            });*/
       });
     });
   </script>
