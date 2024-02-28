@@ -40,39 +40,31 @@
   
           api.loginImplicitGrant(
               "b6842dcd-c15b-4db9-a8fb-001e1057a629",
-              "https://rodardila9.github.io/mutedCalls/"
+              "https://rodardila9.github.io/demoMakeCallButons/DemoBtnsLlamar_index.html"
             )
             .then(() => {
-              const conversationsApi = new platformClient.ConversationsApi();
-              conversationsApi
-                .patchConversationsCallParticipant(
-                  payload.conversationId,
-                  payload.participantId,
-                  { muted: true }
-                )
-                .then(() => {
-                  console.info(`Conversation was muted successfully`);
+
+              const apiInstance = new platformClient.ConversationsApi();
+              const body = {
+                "callFromQueueId": "231b12d6-d673-4158-945e-85cee0f579da", //Cola: Pruebas_Outbound 
+                "phoneNumber": "3112816084",
+                "callerId": "573009137762",
+                "callerIdName": "Genesys"
+              }; // Object | Call request
+      
+              apiInstance.postConversationsCalls(body)
+                .then((data) => {
+                  console.log(`postConversationsCalls success! data: ${JSON.stringify(data, null, 2)}`);
                 })
-                .catch((error) => {
-                  console.error(`Conversation was not muted successfully`);
-                  console.error(error.message);
+                .catch((err) => {
+                  console.log("There was a failure calling postConversationsCalls");
+                  console.error(err);
                 });
+
             });
-
-        const apiInstance = new platformClient.ConversationsApi();
-        const body = {}; // Object | Call request
-
-        apiInstance.postConversationsCalls(body)
-          .then((data) => {
-            console.log(`postConversationsCalls success! data: ${JSON.stringify(data, null, 2)}`);
-          })
-          .catch((err) => {
-            console.log("There was a failure calling postConversationsCalls");
-            console.error(err);
-          });
-      });
+         }    
     });
-
+  });
 
     documentMutedCall.addEventListener("DOMContentLoaded", function() {
       const muteBtn = documentMutedCall.getElementById("muteBtn");
@@ -81,19 +73,38 @@
         const platformClient = require("purecloud-platform-client-v2");
         const client = platformClient.ApiClient.instance;
         client.setEnvironment(platformClient.PureCloudRegionHosts.sa_east_1);
-        client.setAccessToken("your_access_token"); // Reemplaza "your_access_token" con tu token de acceso
 
-        const apiInstance = new platformClient.ConversationsApi();
-        const body = {}; // Object | Call request
+        if (state) {
+          // Authenticated
+          const payload = JSON.parse(decodeURIComponent(state));
+  
+          api.loginImplicitGrant(
+              "b6842dcd-c15b-4db9-a8fb-001e1057a629",
+              "https://rodardila9.github.io/demoMakeCallButons/DemoBtnsLlamar_index.html"
+            )
+            .then(() => {
 
-        apiInstance.postConversationsCalls(body)
-          .then((data) => {
-            console.log(`postConversationsCalls success! data: ${JSON.stringify(data, null, 2)}`);
-          })
-          .catch((err) => {
-            console.log("There was a failure calling postConversationsCalls");
-            console.error(err);
-          });
+              const apiInstance = new platformClient.ConversationsApi();
+              const body = {
+                "callFromQueueId": "87c4d826-ccc8-4269-a099-2f6fd606a78d", //Cola: Pruebas_Outbound-muted 
+                "phoneNumber": "3112816084",
+                "callerId": "573009137762",
+                "callerIdName": "Genesys"
+              }; // Object | Call request
+      
+              apiInstance.postConversationsCalls(body)
+                .then((data) => {
+                  console.log(`postConversationsCalls success! data: ${JSON.stringify(data, null, 2)}`);
+                })
+                .catch((err) => {
+                  console.log("There was a failure calling postConversationsCalls");
+                  console.error(err);
+                });
+
+            });
+         }   
+
+
       });
     });
   </script>
