@@ -27,7 +27,7 @@
   <script type="text/javascript">
 
     document.addEventListener("DOMContentLoaded", function() {
-      const llamarBtn = documentStandardCall.getElementById("llamarBtn");
+      const llamarBtn = document.getElementById("llamarBtn");
       
       llamarBtn.addEventListener("click", function() {
         const platformClient = require("purecloud-platform-client-v2");
@@ -67,7 +67,7 @@
   });
 
     document.addEventListener("DOMContentLoaded", function() {
-      const muteBtn = documentMutedCall.getElementById("muteBtn");
+      const muteBtn = document.getElementById("muteBtn");
       
       muteBtn.addEventListener("click", function() {
         const platformClient = require("purecloud-platform-client-v2");
