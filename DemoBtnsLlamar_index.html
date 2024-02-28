@@ -33,14 +33,6 @@
         const platformClient = require("platformClient");
         const client = platformClient.ApiClient.instance;
         client.setEnvironment(platformClient.PureCloudRegionHosts.sa_east_1);
-        const searchParameters = new URLSearchParams(
-          location.search.slice(1) || location.hash.slice(1)
-        );
-        const state = searchParameters.get("state");
-
-        if (state) {
-          // Authenticated
-          const payload = JSON.parse(decodeURIComponent(state));
   
           api.loginImplicitGrant(
               "b6842dcd-c15b-4db9-a8fb-001e1057a629",
@@ -66,7 +58,6 @@
                 });
 
             });
-         }    
     });
   });
 
@@ -78,10 +69,6 @@
         const client = platformClient.ApiClient.instance;
         client.setEnvironment(platformClient.PureCloudRegionHosts.sa_east_1);
 
-        if (state) {
-          // Authenticated
-          const payload = JSON.parse(decodeURIComponent(state));
-  
           api.loginImplicitGrant(
               "b6842dcd-c15b-4db9-a8fb-001e1057a629",
               "https://rodardila9.github.io/demoMakeCallButons/DemoBtnsLlamar_index.html"
@@ -106,9 +93,6 @@
                 });
 
             });
-         }   
-
-
       });
     });
   </script>
