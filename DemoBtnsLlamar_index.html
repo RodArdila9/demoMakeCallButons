@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Botones</title>
+  <style>
+    .boton {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Include the CJS SDK -->
+  <script src="https://sdk-cdn.mypurecloud.com/javascript/latest/purecloud-platform-client-v2.min.js"></script>  
+
+  <button class="boton" id="llamarBtn">LLAMAR</button>
+  <button class="boton" id="muteBtn">LLAMADA MUTEADA</button>
+
+  <script type="text/javascript">
+
+    documentStandardCall.addEventListener("DOMContentLoaded", function() {
+      const llamarBtn = documentStandardCall.getElementById("llamarBtn");
+      
+      llamarBtn.addEventListener("click", function() {
+        const platformClient = require("purecloud-platform-client-v2");
+        const client = platformClient.ApiClient.instance;
+        client.setEnvironment(platformClient.PureCloudRegionHosts.sa_east_1);
+
+        if (state) {
+          // Authenticated
+          const payload = JSON.parse(decodeURIComponent(state));
+  
+          api.loginImplicitGrant(
+              "b6842dcd-c15b-4db9-a8fb-001e1057a629",
+              "https://rodardila9.github.io/mutedCalls/"
+            )
+            .then(() => {
+              const conversationsApi = new platformClient.ConversationsApi();
+              conversationsApi
+                .patchConversationsCallParticipant(
+                  payload.conversationId,
+                  payload.participantId,
+                  { muted: true }
+                )
+                .then(() => {
+                  console.info(`Conversation was muted successfully`);
+                })
+                .catch((error) => {
+                  console.error(`Conversation was not muted successfully`);
+                  console.error(error.message);
+                });
+            });
+
+        const apiInstance = new platformClient.ConversationsApi();
+        const body = {}; // Object | Call request
+
+        apiInstance.postConversationsCalls(body)
+          .then((data) => {
+            console.log(`postConversationsCalls success! data: ${JSON.stringify(data, null, 2)}`);
+          })
+          .catch((err) => {
+            console.log("There was a failure calling postConversationsCalls");
+            console.error(err);
+          });
+      });
+    });
+
+
+    documentMutedCall.addEventListener("DOMContentLoaded", function() {
+      const muteBtn = documentMutedCall.getElementById("muteBtn");
+      
+      muteBtn.addEventListener("click", function() {
+        const platformClient = require("purecloud-platform-client-v2");
+        const client = platformClient.ApiClient.instance;
+        client.setEnvironment(platformClient.PureCloudRegionHosts.sa_east_1);
+        client.setAccessToken("your_access_token"); // Reemplaza "your_access_token" con tu token de acceso
+
+        const apiInstance = new platformClient.ConversationsApi();
+        const body = {}; // Object | Call request
+
+        apiInstance.postConversationsCalls(body)
+          .then((data) => {
+            console.log(`postConversationsCalls success! data: ${JSON.stringify(data, null, 2)}`);
+          })
+          .catch((err) => {
+            console.log("There was a failure calling postConversationsCalls");
+            console.error(err);
+          });
+      });
+    });
+  </script>
+</body>
+</html>
