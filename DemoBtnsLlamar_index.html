@@ -37,6 +37,8 @@
         const clientId = "b6842dcd-c15b-4db9-a8fb-001e1057a629";
         const redirectUri = "https://rodardila9.github.io/demoMakeCallButons/DemoBtnsLlamar_index.html";
 
+        const state = platformClient.ApiClient.instance.authData;
+
         client.loginImplicitGrant(clientId, redirectUri, { state: state })
           .then((data) => {
             console.log(data);
@@ -100,10 +102,13 @@
       muteBtn.addEventListener("click", function() {
         const platformClient = require("purecloud-platform-client-v2");
         const client = platformClient.ApiClient.instance;
+        
         client.setEnvironment(platformClient.PureCloudRegionHosts.sa_east_1);
 
         const clientId = "b6842dcd-c15b-4db9-a8fb-001e1057a629";
         const redirectUri = "https://rodardila9.github.io/demoMakeCallButons/DemoBtnsLlamar_index.html";
+
+        const state = platformClient.ApiClient.instance.authData;
 
         client.loginImplicitGrant(clientId, redirectUri, { state: state })
           .then((data) => {
