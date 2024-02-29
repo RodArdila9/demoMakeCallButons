@@ -37,7 +37,7 @@
         const clientId = "b6842dcd-c15b-4db9-a8fb-001e1057a629";
         const redirectUri = "https://rodardila9.github.io/demoMakeCallButons/DemoBtnsLlamar_index.html";
 
-        console.log("AuthData:" + platformClient.ApiClient.instance.authData);
+        console.log(`AuthData: ${JSON.stringify(data, null, 2)}`);
 
         client.loginImplicitGrant(clientId, redirectUri)
           .then((data) => {
