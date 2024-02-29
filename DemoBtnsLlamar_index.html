@@ -34,18 +34,17 @@
         const client = platformClient.ApiClient.instance;
         client.setEnvironment(platformClient.PureCloudRegionHosts.sa_east_1);
         
+        /*
         const clientId = "b6842dcd-c15b-4db9-a8fb-001e1057a629";
         const redirectUri = "https://rodardila9.github.io/demoMakeCallButons/DemoBtnsLlamar_index.html";
+        */
 
-        const state = platformClient.ApiClient.instance.authData;
-          
-        console.log(`AuthData: ${JSON.stringify(state, null, 2)}`);
-
-        client.loginImplicitGrant(clientId, redirectUri)
+        client.loginImplicitGrant("81247c63-9aad-412e-82fd-8d72435ad95e", 
+        "https://rodardila9.github.io/demoMakeCallButons/DemoBtnsLlamar_index.html")
           .then((data) => {
             console.log(data);
+
             // Do authenticated things
-            
             const apiInstance = new platformClient.ConversationsApi();
             const body = {
               "callFromQueueId": "231b12d6-d673-4158-945e-85cee0f579da", //Cola: Pruebas_Outbound 
@@ -102,21 +101,22 @@
       const muteBtn = document.getElementById("muteBtn");
       
       muteBtn.addEventListener("click", function() {
-        const platformClient = require("purecloud-platform-client-v2");
+        const platformClient = require("platformClient");
         const client = platformClient.ApiClient.instance;
         
         client.setEnvironment(platformClient.PureCloudRegionHosts.sa_east_1);
 
+        /*
         const clientId = "b6842dcd-c15b-4db9-a8fb-001e1057a629";
         const redirectUri = "https://rodardila9.github.io/demoMakeCallButons/DemoBtnsLlamar_index.html";
+        */
 
-        const state = platformClient.ApiClient.instance.authData;
-
-        client.loginImplicitGrant(clientId, redirectUri, { state: state })
+        client.loginImplicitGrant("b6842dcd-c15b-4db9-a8fb-001e1057a629", 
+        "https://rodardila9.github.io/demoMakeCallButons/DemoBtnsLlamar_index.html")
           .then((data) => {
             console.log(data);
+
             // Do authenticated things
-            
             const apiInstance = new platformClient.ConversationsApi();
             const body = {
               "callFromQueueId": "87c4d826-ccc8-4269-a099-2f6fd606a78d", //Cola: Pruebas_Outbound-muted 
