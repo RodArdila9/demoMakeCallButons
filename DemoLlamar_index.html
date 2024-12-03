@@ -43,7 +43,7 @@
         client.setEnvironment(platformClient.PureCloudRegionHosts.sa_east_1);
 
         //Se llama la función para realizar la autenticación Implicit Grant en la instancia
-        client.loginImplicitGrant("18baa84f-37f4-4be7-a87e-f8743304ea90", //ID del OAuth en Genesys: OAuthMutearLlamadas
+        client.loginImplicitGrant("18baa84f-37f4-4be7-a87e-f8743304ea90", //ID del OAuth en Genesys
         "https://rodardila9.github.io/demoMakeCallButons/DemoLlamar_index.html") //URI previamente autorizada en el OAuth en Genesys para redireccionar luego de la autenticación
           .then((data) => {
             console.log(data);
@@ -53,7 +53,7 @@
             const apiInstance = new platformClient.ConversationsApi(); //Se crea una instancia directamente a la API de Conversation
             const body = { //Body con la data necesaria para generar la llamada en Genesys a través de la API
               "phoneNumber": "3112816084", //Número del cliente a contactar
-              "callerId": "576045012131", //Número de Monitoreo Inteligente a través del cual se contacta al cliente **No varía
+              "callerId": "576045012131", //Número a través del cual se contacta al cliente **No varía
               "callerIdName": "Genesys" //Nombre establecido en la Troncal en Genesys **No varía
             }; // Object | Call request
             
