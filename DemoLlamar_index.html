@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Botones</title>
+  <style>
+    .boton {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="boton" id="llamarBtn">LLAMAR</button>
+
+
+   
+  <!-- Include the CJS SDK - GENESYS JAVASCRIPT SDK--> 
+  <script src="https://sdk-cdn.mypurecloud.com/javascript/latest/purecloud-platform-client-v2.min.js"></script>  
+
+  <script type="text/javascript">
+
+    //LLAMADAS DE SALIDA CONVENCIONALES
+    document.addEventListener("DOMContentLoaded", function() {
+      const llamarBtn = document.getElementById("llamarBtn");
+      
+      llamarBtn.addEventListener("click", function() {
+        
+        //Obtiene una referencia al objeto platformClient
+        const platformClient = require("platformClient");
+
+        //Se crea la instancia ApiClient de platformClient 
+        const client = platformClient.ApiClient.instance;
+
+        //Se establece la región, para este caso aún no se define la región.
+        client.setEnvironment(platformClient.PureCloudRegionHosts.sa_east_1);
+
+        //Se llama la función para realizar la autenticación Implicit Grant en la instancia
+        client.loginImplicitGrant("18baa84f-37f4-4be7-a87e-f8743304ea90", //ID del OAuth en Genesys: OAuthMutearLlamadas
+        "https://rodardila9.github.io/demoMakeCallButons/DemoBtnsLlamar_index.html") //URI previamente autorizada en el OAuth en Genesys para redireccionar luego de la autenticación
+          .then((data) => {
+            console.log(data);
+
+            // Do authenticated things
+            
+            const apiInstance = new platformClient.ConversationsApi(); //Se crea una instancia directamente a la API de Conversation
+            const body = { //Body con la data necesaria para generar la llamada en Genesys a través de la API
+              "phoneNumber": "3112816084", //Número del cliente a contactar
+              "callerId": "576045012131", //Número de Monitoreo Inteligente a través del cual se contacta al cliente **No varía
+              "callerIdName": "Genesys" //Nombre establecido en la Troncal en Genesys **No varía
+            }; // Object | Call request
+            
+            //Petición en método POST a la API con el BODY previo
+            apiInstance.postConversationsCalls(body)
+              .then((data) => {
+                console.log(`postConversationsCalls success! data: ${JSON.stringify(data, null, 2)}`);
+              })
+              .catch((err) => {
+                console.log("There was a failure calling postConversationsCalls");
+                console.error(err);
+              });
+
+          })
+          .catch((err) => {
+            // Handle failure response
+            console.log("There was a failure calling postConversationsCalls");
+            console.error(err);
+          });
+
+    });
+  });
+  </script>
+</body>
+</html>
